@@ -1,5 +1,11 @@
 from src.builders.PetBuilder import PetBuilder
 from src.factories.UserFac import UserFac
+from src.facades.AdocaoFacade import AdocaoFacade
+from src.services.registroAdocao import RegistroAdocao
+from src.services.ValidadorDocumentos import ValidadorDocumentos
+from src.services.ValidadorFotos import ValidadorFotos
+from src.adapters.PetAdapter import PetAdapter
+from src.adapters.EnderecoAdapter import EnderecoAdapter
 
 
 adotante1 = UserFac.criar_usuario(
@@ -123,8 +129,46 @@ pet = (
     .build()
 )
 
+
+
+
+validador_doc = ValidadorDocumentos()
+validador_foto = ValidadorFotos()
+registro = RegistroAdocao()
+
+facade = AdocaoFacade(validador_doc, validador_foto, registro)
+
+resultado = facade.processarAdocao(
+    adotante=adotante1,
+    pet=pet,
+    documentos=["rg", "cpf", "comprovante_residencia"],
+    foto_entrega=["foto_entrega1.jpg"]
+)
+
+
+
+dados_externos = {
+    "nomeAnimal": "Frajola",
+    "tipo": "Gato",
+    "idadeAnos": 2,
+    "sexo": "M",
+    "local": "Belo Horizonte - MG",
+    "imagens": ["img1.jpg", "img2.jpg", "img3.jpg"]
+}
+
+pet_convertido = PetAdapter.adaptar(dados_externos)
+
+
+dados_api = {"cidade": "Belo Horizonte", "estado": "MG"}
+adapter = EnderecoAdapter(dados_api)
+endereco_formatado = adapter.obter_endereco_formatado()
+
 print(adotante1.informacoes())
 print(vendedor1.informacoes())
 print(anjo1.informacoes())
 print(admin1.informacoes())
 print(pet)
+print ("**")
+print(resultado)
+print(pet_convertido.nome)  
+print(endereco_formatado) 
