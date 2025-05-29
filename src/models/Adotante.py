@@ -1,31 +1,15 @@
-from src.models.Usuario import Usuario 
-from src.models.Pet import Pet
+from src.models.User import User
 
+class Adotante(User):
+    def __init__(self, nome, endereco, telefone, cpf=""):
+        super().__init__(nome, endereco, telefone)
+        self.tipo =  "Adotante"
+        self.cpf = cpf
 
-class Adotante (Usuario):
-    def __init__(self, nome, dtNasc, endereco, telefone, email, cpf: str ):
-        """ Classe Adotante que herda de Pessoa """
-        super().__init__(nome, dtNasc, endereco, telefone, email)
-        self._adotante = True
-        self._cpf = cpf
+    def get_tipo(self):
+        return self.tipo
 
-    @property
-    def cpf(self):
-        return self._cpf
-    
-    @cpf.setter
-    def cpf(self, cpf):
-        if len(cpf) < 11:
-            raise ValueError("O CPF deve ter 11 dígitos.")
-        elif len(cpf) > 11:
-            raise ValueError("O CPF deve ter 11 dígitos.")
-        else:   
-            self._cpf = cpf
-
-    def getInfo(self):
-        info = super().getInfo()
-        return f'{info}CPF: {self._cpf}'
-    
-    def cadastrarPet(self, pet):
-        """ Método para cadastrar um pet """
-        pass
+    def informacoes(self) -> str:
+        info = super().informacoes()
+        return info+ f"""CPF: {self.cpf},
+        Tipo: {self.tipo}"""

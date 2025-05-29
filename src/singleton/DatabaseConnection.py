@@ -1,5 +1,3 @@
-
-
 class DatabaseConnection:
     _instance = None
     def __new__(cls):
