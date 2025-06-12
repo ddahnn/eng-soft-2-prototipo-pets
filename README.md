@@ -129,3 +129,14 @@ Vantagens no contexto do projeto:
 # O código abaixo levantaria um erro pois faltam campos obrigatórios:
 pet = PetBuilder().set_nome("Tobby").build()
 # => ValueError: Campos obrigatórios não foram preenchidos.
+
+
+## 🧩 3ª Entrega – Padrões Comportamentais
+
+### 👁️ Observer
+Padrão usado para notificar usuários automaticamente.
+Trecho de código: `src/behavioral/observer.py`
+
+### 🧠 Strategy
+Padrão usado para mudar a lógica de cálculo de pontos.
+Trecho de código: `src/behavioral/strategy.py`
